@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.mp4
+*.mov
+*.m4v
+*.webm
+*.mkv
+*.ass
+monte.json
+jour*.json
+broll/
+brut/
+.DS_Store
