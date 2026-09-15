@@ -44,3 +44,57 @@ Demande `uname -a`. Si ça répond **Darwin**, tu es sur ton Mac. Si ça répond
 
 Un dossier par jour, daté, avec la vidéo non montée dedans. C'est la seule
 pièce qui ne se rattrape pas plus tard.
+
+---
+
+# Studio — l'interface
+
+Une page web locale pour monter en parlant, au lieu de taper dans un terminal.
+
+```
+cd ~/Desktop/montage
+python3 studio.py
+```
+
+Le navigateur s'ouvre sur `http://localhost:8765`.
+
+## Comment ça marche
+
+- **Glisse tes vidéos et tes captures dans la page** — elles atterrissent dans
+  le dossier
+- **Écris ce que tu veux dans la barre du bas** (Cmd+Entrée pour envoyer)
+- L'agent monte, sa sortie défile en direct, le résultat s'affiche dans le
+  lecteur
+- Tu continues à lui parler pour corriger
+
+## Ce que ça fait tourner
+
+La page ne monte rien elle-même. Elle passe ta demande au **Claude Code déjà
+installé sur ta machine**, dans ce dossier, qui lit `CLAUDE.md`, écrit le
+ffmpeg qu'il faut et le lance.
+
+Rien ne sort de ton Mac : le serveur écoute sur `127.0.0.1` seulement, et les
+fichiers ne quittent jamais le dossier.
+
+## Ce que tu autorises
+
+Pour lancer ffmpeg sans t'interrompre à chaque commande, le studio pré-approuve
+`Bash,Read,Write,Edit,Glob,Grep` pour l'agent — dans ce dossier uniquement.
+C'est la constante `CLAUDE_FLAGS` en haut de `studio.py` si tu veux resserrer.
+
+Lance le studio depuis ton dossier de montage, pas depuis ton dossier
+personnel.
+
+## Exemples de demandes
+
+> Monte brut.mp4, mes captures sont dans broll/, sors-moi jour002.mp4
+
+> Analyse ref.mp4 : extrais des images, regarde le style des sous-titres, la
+> fréquence des coupes, les zooms. Montre-moi ton analyse, puis applique ce
+> style à brut.mp4.
+
+> Les sous-titres sont trop bas, monte-les de 10 %.
+
+> Fais grossir le mot quand je le prononce.
+
+> Retiens ça dans CLAUDE.md.
