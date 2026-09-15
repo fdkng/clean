@@ -1,105 +1,46 @@
-# Monteur automatique — MBA de fondateur
+# Dossier de montage
 
-Tu donnes une vidéo brute et un dossier de B-roll. Tu reçois une vidéo verticale
-montée, coupée, sous-titrée.
+Un dossier, une vidéo par jour, aucun script figé.
 
-```
-python3 edit.py brut.mp4 --broll broll/ --out jour002.mp4
-```
+## Ce qu'il faut sur la machine
 
-## Ce qu'il fait
+- **ffmpeg** — `brew install ffmpeg`
+- **L'app Claude** — session locale ouverte sur ce dossier
 
-1. **Transcrit** ta parole avec le timecode de chaque mot
-2. **Coupe** les silences de plus d'une demi-seconde et les hésitations (*um*, *uh*, *like*…)
-3. **Place ton B-roll** aux moments où tu prononces le mot-clé
-4. **Grave les sous-titres** en gros, trois mots à la fois, centrés
-5. **Exporte** en 1080×1920
+## Comment s'en servir
 
-Tout roule sur ta machine. Aucune clé d'API, aucun abonnement, rien qui monte
-sur un serveur.
-
-## Installation — une seule fois
-
-**1. ffmpeg**
-
-- macOS : `brew install ffmpeg`
-- Windows : `winget install ffmpeg`
-- Linux : `sudo apt install ffmpeg`
-
-**2. Le reste**
-
-```
-pip install faster-whisper
-```
-
-Vérifie que ça marche :
-
-```
-ffmpeg -version
-python3 edit.py --help
-```
-
-## Nommer ton B-roll
-
-**Le nom du fichier, c'est le mot que tu dis dans la vidéo.**
-
-| Fichier | Apparaît quand tu dis |
-|---|---|
-| `emails.mp4` | « emails » |
-| `quote.png` | « quote » |
-| `supplier-factory.mp4` | « supplier » ou « factory » |
-| `mba.mp4` | « MBA » |
-
-Un clip est utilisé **une seule fois**, à sa première occurrence. Si le mot-clé
-n'est jamais prononcé, le clip est ignoré et le script te le dit.
-
-Deux B-rolls gardent toujours 2,5 secondes d'écart, pour pas que ça clignote.
-
-## Exemple
+Mets ta vidéo brute et tes captures d'écran dans le dossier :
 
 ```
 jour002/
 ├── brut.mp4
 └── broll/
-    ├── emails.png          ← capture de ton inbox
-    ├── quote.png           ← la soumission de l'usine
-    └── mba.mp4             ← ton document qui défile
+    ├── emails.png
+    └── quote.png
 ```
 
-```
-python3 edit.py jour002/brut.mp4 --broll jour002/broll/ --out jour002.mp4
-```
+Ouvre une session Claude **locale** sur ce dossier et demande ce que tu veux,
+en français. `CLAUDE.md` contient déjà tes préférences — pas besoin de les
+répéter.
 
-Sortie : `jour002.mp4` plus `jour002.json` — le détail de ce qui a été coupé,
-où chaque B-roll a été placé, et le transcript complet.
+> Monte `brut.mp4`. Les captures sont dans `broll/`. Sors-moi `jour002.mp4`.
 
-## Options
+Puis tu corriges en parlant :
 
-| Option | Défaut | Quoi |
-|---|---|---|
-| `--lang` | `en` | Langue parlée : `en`, `fr`… |
-| `--model` | `base` | Précision de la transcription : `tiny`, `base`, `small`, `medium` |
-| `--keep-fillers` | — | Garde les hésitations |
-| `--out` | `monte.mp4` | Nom du fichier de sortie |
+> Les sous-titres sont trop bas.
+> Mets une police plus condensée.
+> Les mots apparaissent un par un au lieu de trois d'un coup.
+> Le B-roll rentre en fondu au lieu de couper sec.
+> Fais grossir le mot quand je le prononce.
 
-`base` suffit pour une vidéo d'une minute. Monte à `small` si les sous-titres
-se trompent souvent sur des mots précis (noms propres, chiffres).
+Rien n'est figé. Une demande différente donne un montage différent.
 
-## Réglages
+## Vérifier qu'une session est locale
 
-Les constantes sont en haut de `edit.py` :
-
-| Constante | Défaut | Quoi |
-|---|---|---|
-| `SILENCE_MAX` | `0.55` | Silence toléré avant de couper, en secondes |
-| `BROLL_MIN` / `BROLL_MAX` | `1.2` / `3.0` | Durée d'un plan de B-roll |
-| `BROLL_GAP` | `2.5` | Écart minimum entre deux B-rolls |
-| `CAPTION_WORDS` | `3` | Mots par carton de sous-titre |
+Demande `uname -a`. Si ça répond **Darwin**, tu es sur ton Mac. Si ça répond
+**Linux**, la session roule dans le nuage et n'a pas accès à tes fichiers.
 
 ## Garde tes fichiers bruts
 
-Un dossier par jour, daté, avec la vidéo brute non montée.
-
-C'est la seule pièce qui se rattrape pas plus tard : le jour où tu voudras que
-l'agent aille chercher du B-roll dans tes anciennes vidéos, il lui faudra une
-archive. Elle se construit maintenant ou jamais.
+Un dossier par jour, daté, avec la vidéo non montée dedans. C'est la seule
+pièce qui ne se rattrape pas plus tard.

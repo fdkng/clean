@@ -1,0 +1,86 @@
+# Contexte pour le montage
+
+Ce dossier sert à monter une vidéo par jour. Lis ce fichier avant de monter.
+
+**Ce sont mes préférences par défaut, pas des règles fixes.** Si je te demande
+autre chose dans la conversation, ma demande passe avant ce fichier. Tu
+n'exécutes aucun script préfabriqué : tu écris le ffmpeg qu'il faut, à chaque
+fois, selon ce que je te dis.
+
+---
+
+## La série
+
+Je documente un programme d'affaires de 336 jours que je me suis écrit
+moi-même. Trois vidéos de cours par jour, puis je publie une vidéo d'environ
+une minute sur ce que j'ai appris. Je parle en anglais, face caméra.
+
+Le sujet, c'est **l'apprentissage**. Le produit que je construis reste en
+arrière-plan.
+
+## La structure d'une vidéo
+
+| Créneau | Temps | Contenu |
+|---|---|---|
+| 1 | 0-6 s | Le résultat de ce que je m'étais engagé à faire la veille |
+| 2 | 6-13 s | Le numéro du jour, le thème, les trois intervenants |
+| 3 | 13-36 s | Ma réponse de pré-test, puis ce sur quoi les trois convergent |
+| 4 | 36-44 s | Ce que j'aurais fait si je l'avais su avant |
+| 5 | 44-53 s | Ce que je fais ce soir à cause de ça |
+| 6 | 53-59 s | Un ordre d'agir, puis le jour suivant |
+
+Le créneau 3 est le cœur. S'il faut couper pour raccourcir, coupe le 4 avant
+tout le reste, et jamais le 3.
+
+## Comment monter
+
+**Les coupes.** Enlève les silences de plus d'une demi-seconde et mes
+hésitations : *um*, *uh*, *like*, *so* en début de phrase. Garde une petite
+marge autour de chaque mot pour que ça respire — une coupe collée sur la
+syllabe s'entend.
+
+**Les sous-titres.** Gravés dans l'image, jamais en fichier séparé. Blancs,
+contour noir épais, majuscules, environ trois mots à la fois, centrés dans le
+bas sans toucher la zone d'interface des applications. Ils doivent rester
+lisibles sur fond clair comme sur fond foncé.
+
+**Le B-roll.** Plein écran, entre une et trois secondes, au moins deux
+secondes et demie entre deux plans — sinon ça clignote.
+
+**La sortie.** 1080x1920, H.264, audio AAC.
+
+## Le nom des fichiers de B-roll
+
+Le nom du fichier est le mot que je prononce dans la vidéo. `emails.png` se
+place quand je dis « emails ». Plusieurs mots possibles : sépare-les par des
+tirets, `supplier-factory.mp4`.
+
+Place chaque clip à la première occurrence du mot. Si un mot n'est jamais
+prononcé, dis-le-moi au lieu de placer le clip ailleurs.
+
+**N'utilise jamais de banque d'images.** Mon B-roll, c'est mes preuves : mes
+courriels, mes soumissions, mes listes écrites à la main, mes documents à
+l'écran. Du stock générique détruit exactement ce qui me rend crédible.
+
+## Le vocabulaire
+
+J'évite de nommer mon produit précis dans les vidéos : ça brouille le
+classement de mon compte. Je dis « my brand », « my supplier », « my first
+order », « my product ». Si tu génères ou corriges du texte à l'écran, garde ce
+vocabulaire-là.
+
+## À ne jamais faire
+
+- Ajouter une intro ou un logo animé au début
+- Laisser un silence avant mon premier mot : la première syllabe est dans le
+  premier quart de seconde
+- Mettre de la musique par-dessus ma voix sans que je l'aie demandé
+- Réencoder plusieurs fois inutilement, ça ramollit l'image
+
+## Comment je veux que tu travailles
+
+Dis-moi ce que tu fais au fur et à mesure. Quand tu as un doute sur un choix
+qui change le rendu, demande-moi avant de rendre plutôt que de deviner.
+
+Après chaque rendu, dis-moi la durée finale, combien de secondes tu as
+enlevées, et où chaque B-roll a atterri.
