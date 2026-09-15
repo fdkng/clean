@@ -32,6 +32,28 @@ arrière-plan.
 Le créneau 3 est le cœur. S'il faut couper pour raccourcir, coupe le 4 avant
 tout le reste, et jamais le 3.
 
+## Mes rushes sont des prises, pas un montage
+
+Chaque jour je filme la même ligne plusieurs fois. Je me trompe, je bégaie, je
+recommence. **Rien de ce que je te donne n'est une version finale.** Un dossier
+de rushes, c'est de la matière brute avec des ratés dedans.
+
+Ta job, pour chaque phrase du script : retrouver **toutes** les prises de cette
+phrase et **garder la meilleure**.
+
+Comment trancher :
+
+- Écarte toute prise où je me reprends en plein milieu
+- Écarte celles où je bute sur un mot ou je perds le fil
+- À qualité égale, prends la **dernière** : c'est presque toujours la plus assurée
+- Si deux prises sont bonnes mais différentes, montre-les-moi et laisse-moi choisir
+
+Ne colle jamais deux prises de la même phrase bout à bout, et ne prends pas la
+première venue parce qu'elle arrive en premier dans le fichier.
+
+Dis-moi toujours, pour chaque ligne : combien de prises tu as trouvées, laquelle
+tu as retenue, et pourquoi.
+
 ## Comment monter
 
 **Les coupes.** Enlève les silences de plus d'une demi-seconde et mes
