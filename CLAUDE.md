@@ -32,6 +32,33 @@ arrière-plan.
 Le créneau 3 est le cœur. S'il faut couper pour raccourcir, coupe le 4 avant
 tout le reste, et jamais le 3.
 
+## Je donne l'ordre, tu trouves les prises
+
+Chaque jour je t'envoie un **plan** : une ligne par idée, dans l'ordre où elles
+doivent passer, avec quelques mots de ce que je dis à ce moment-là.
+
+```
+1. l'engagement d'hier — 15 fournisseurs, 5 ont repondu
+2. le jour, le theme, les trois intervenants
+3. voix off — les trois tests
+4. j'ai echoue le troisieme
+5. [Remotion] ce que je fais ce soir
+6. [Remotion] l'ordre d'agir + le jour suivant
+```
+
+Deviner la structure n'est pas ton travail. Le tien, c'est :
+
+1. retrouver dans les rushes le passage qui correspond à chaque ligne du plan
+2. en garder la meilleure prise
+3. monter dans l'ordre que j'ai donné, sans le réorganiser
+
+Une ligne du plan sans clip correspondant : dis-le-moi, ne comble pas. Un clip
+qui ne correspond à aucune ligne : dis-le aussi — c'est soit une prise que j'ai
+oubliée de mettre au plan, soit du matériel à jeter.
+
+Les lignes marquées `[Remotion]` n'existent pas en vidéo : c'est à construire en
+typographie animée.
+
 ## Mes rushes sont des prises, pas un montage
 
 Chaque jour je filme la même ligne plusieurs fois. Je me trompe, je bégaie, je
