@@ -36,6 +36,10 @@ FOLDER = Path.cwd()
 # a chaque commande. Ils s'appliquent uniquement dans ce dossier.
 CLAUDE_FLAGS = ["--allowedTools", "Bash,Read,Write,Edit,Glob,Grep"]
 
+# Variables qui detournent l'agent vers une cle d'API ou un proxy au lieu de ta
+# session Claude. On les retire avant de le lancer, sans toucher a ton shell.
+AUTH_OVERRIDES = ("ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN", "ANTHROPIC_BASE_URL")
+
 VIDEO_EXT = {".mp4", ".mov", ".m4v", ".webm", ".mkv"}
 IMAGE_EXT = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
 MEDIA_EXT = VIDEO_EXT | IMAGE_EXT
@@ -69,10 +73,12 @@ def run_agent(job_id, message):
         with JOBS_LOCK:
             JOBS[job_id]["output"] += text
 
+    env = {k: v for k, v in os.environ.items() if k not in AUTH_OVERRIDES}
+
     try:
         proc = subprocess.Popen(
             cmd, cwd=str(FOLDER), stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT, text=True, bufsize=1,
+            stderr=subprocess.STDOUT, text=True, bufsize=1, env=env,
         )
     except OSError as exc:
         append("Impossible de lancer l'agent : %s" % exc)
@@ -596,6 +602,10 @@ def main():
     print("\n  Studio\n")
     print("  Dossier : %s" % FOLDER)
     print("  Adresse : %s" % url)
+    stripped = [k for k in AUTH_OVERRIDES if k in os.environ]
+    if stripped:
+        print("  Ignore  : %s (l'agent utilise ta session Claude)"
+              % ", ".join(stripped))
     print("\n  Ctrl+C pour arreter.\n")
     threading.Timer(1.0, lambda: webbrowser.open(url)).start()
     try:
