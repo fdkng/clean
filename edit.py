@@ -283,7 +283,7 @@ def cut_pass(source, segments, out_path):
     run([
         "ffmpeg", "-y", "-i", str(source),
         "-vf", "select='%s',setpts=N/FRAME_RATE/TB" % expr,
-        "-af", "aselect='%s',asetpts=N/SR/STB" % expr,
+        "-af", "aselect='%s',asetpts=N/SR/TB" % expr,
         "-c:v", "libx264", "-preset", "veryfast", "-crf", "18",
         "-c:a", "aac", "-b:a", "192k",
         str(out_path),
@@ -308,7 +308,10 @@ def render(cut_video, broll_plan, captions, out_path):
     current = "base"
     for idx, item in enumerate(broll_plan, start=1):
         label = "b%d" % idx
-        steps.append("[%d:v]%s,fps=30,setpts=PTS-STARTPTS[%s]" % (idx, fit, label))
+        # Decale le clip pour qu'il tombe dans sa fenetre d'affichage :
+        # sans ca, il joue a t=0 et il est deja fini quand l'overlay s'active.
+        steps.append("[%d:v]%s,fps=30,setpts=PTS-STARTPTS+%.3f/TB[%s]"
+                     % (idx, fit, item["start"], label))
         nxt = "v%d" % idx
         steps.append(
             "[%s][%s]overlay=0:0:enable='between(t,%.3f,%.3f)':eof_action=pass[%s]"
