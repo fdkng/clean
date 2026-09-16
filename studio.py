@@ -624,14 +624,32 @@ main{flex:1; display:flex; min-height:0}
 
 # ---------------------------------------------------------------------------
 
+def open_server():
+    """Prend le premier port libre a partir de PORT, plutot que d'echouer."""
+    last = None
+    for port in range(PORT, PORT + 12):
+        try:
+            return ThreadingHTTPServer(("127.0.0.1", port), Handler), port
+        except OSError as exc:
+            last = exc
+            continue
+    sys.exit(
+        "Aucun port libre entre %d et %d.\n"
+        "  Un studio tourne deja ? Ferme-le, ou libere le port :\n"
+        "    lsof -ti :%d | xargs kill\n"
+        "  (%s)\n" % (PORT, PORT + 11, PORT, last)
+    )
+
+
 def main():
     agent_binary()
-    server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
-    url = "http://localhost:%d" % PORT
+    server, port = open_server()
+    url = "http://localhost:%d" % port
     print("\n  Studio\n")
     print("  Agent   : %s" % AGENT_NAME)
     print("  Dossier : %s" % FOLDER)
-    print("  Adresse : %s" % url)
+    print("  Adresse : %s%s" % (url, "" if port == PORT else
+          "   (le port %d etait pris)" % PORT))
     stripped = [k for k in AUTH_OVERRIDES if k in os.environ]
     if stripped:
         print("  Ignore  : %s (l'agent utilise ta session, pas une cle d'API)"
