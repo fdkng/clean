@@ -122,3 +122,17 @@ dans `.agents/skills`, que les deux agents lisent.
 
 Si le lancement échoue sur un drapeau inconnu, la commande exacte s'affiche
 dans l'erreur — les profils sont en haut de `studio.py`, dans `AGENTS`.
+
+### Si Codex refuse un drapeau
+
+Les options de `codex exec` changent d'une version à l'autre. Par défaut le
+studio n'en passe aucune, et si une option est refusée il relance la commande
+sans — tu vois `[argument refusé — relance sans options]` dans la sortie.
+
+Pour en imposer une que ta version accepte :
+
+```
+STUDIO_CODEX_FLAGS="--sandbox workspace-write" STUDIO_AGENT=codex python3 studio.py
+```
+
+`codex --help` et `codex exec --help` listent ce que ta version connaît.

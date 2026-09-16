@@ -49,14 +49,20 @@ AGENTS = {
     "codex": {
         "bin": "codex",
         "args": lambda msg, cont: ["exec"] + (["resume", "--last"] if cont else [])
-                + ["--full-auto", msg],
-        # Si la reprise n'est pas supportee par cette version, on repart a neuf
-        # au lieu d'echouer.
-        "retry_fresh": True,
+                + CODEX_FLAGS + [msg],
+        # Les options de "codex exec" varient d'une version a l'autre. Si l'une
+        # est refusee, on relance avec le strict minimum plutot que d'echouer.
+        "fallback": lambda msg: ["exec", msg],
     },
 }
 
 AGENT_NAME = os.environ.get("STUDIO_AGENT", "claude").strip().lower()
+
+# Options passees a "codex exec". Vide par defaut : selon la version, des
+# drapeaux comme --full-auto ou --sandbox n'existent que sur la commande
+# interactive. Mets-en ici si ta version en accepte :
+#     STUDIO_CODEX_FLAGS="--sandbox workspace-write" STUDIO_AGENT=codex python3 studio.py
+CODEX_FLAGS = os.environ.get("STUDIO_CODEX_FLAGS", "").split()
 
 # Variables qui detournent l'agent vers une cle d'API ou un proxy au lieu de ta
 # session Claude. On les retire avant de le lancer, sans toucher a ton shell.
@@ -105,7 +111,9 @@ def run_agent(job_id, message):
             JOBS[job_id]["output"] += text
 
     def launch(cont):
-        cmd = [agent_binary()] + profile["args"](message, cont)
+        return launch_cmd([agent_binary()] + profile["args"](message, cont))
+
+    def launch_cmd(cmd):
         try:
             proc = subprocess.Popen(
                 cmd, cwd=str(FOLDER), stdout=subprocess.PIPE,
@@ -124,12 +132,15 @@ def run_agent(job_id, message):
     cont = STARTED_CONVERSATION.is_set()
     code, out = launch(cont)
 
-    # La reprise de conversation a ete refusee sur un argument : on relance une
-    # conversation neuve plutot que de rendre la main sur une erreur d'outil.
-    if (code not in (0, None) and cont and profile.get("retry_fresh")
-            and ("unexpected argument" in out or "unrecognized" in out)):
-        append("\n[reprise non supportee, nouvelle conversation]\n")
-        code, out = launch(False)
+    # Un argument a ete refuse (reprise non supportee, drapeau inconnu de cette
+    # version) : on relance avec le strict minimum au lieu de rendre la main
+    # sur une erreur d'outil.
+    refused = ("unexpected argument" in out or "unrecognized" in out
+               or "unknown option" in out)
+    fallback = profile.get("fallback")
+    if code not in (0, None) and refused and fallback:
+        append("\n[argument refuse — relance sans options]\n")
+        code, out = launch_cmd([agent_binary()] + fallback(message))
 
     STARTED_CONVERSATION.set()
     with JOBS_LOCK:
