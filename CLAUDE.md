@@ -81,22 +81,30 @@ première venue parce qu'elle arrive en premier dans le fichier.
 Dis-moi toujours, pour chaque ligne : combien de prises tu as trouvées, laquelle
 tu as retenue, et pourquoi.
 
-## Une prise ratée reste une image
+## Va chercher ce dont je parle
 
-Quand j'écarte une prise parce que je bégaie, **j'écarte le son, pas l'image.**
-Dans ces plans-là je suis quand même dans le cadre : je bouge, je regarde
-l'objectif. Sous une voix off ou sous un carton, personne n'entend que j'avais
-bafouillé.
+Quand je nomme une vidéo, une personne ou un livre, **montre la vraie chose** :
+la vignette de la vidéo YouTube en question, la couverture du livre, la page
+citée. C'est ce dont je parle, à l'écran, pendant que j'en parle.
 
-Un dossier de rushes contient toujours plusieurs minutes de moi filmé, même
-quand une seule prise est utilisable au son.
+Les vignettes se récupèrent avec `yt-dlp` :
 
-**Ne mets jamais de fond noir tant qu'il reste une seconde de moi dans les
-rushes.** Assombris à 35 %, désature à 40 %, pose le texte par-dessus. Boucle
-le passage s'il est trop court.
+```
+yt-dlp --write-thumbnail --skip-download --convert-thumbnails png "<url>"
+```
 
-Fabriquer un carton sur fond vide est un dernier recours, pas une solution de
-mise en scène. Avant d'en créer un, cherche dans ce que tu as écarté.
+Si je ne t'ai pas donné les liens, demande-les-moi — je les ai dans mon
+programme. N'invente pas une image approchante.
+
+**Ce n'est pas de la banque d'images.** La distinction est simple :
+
+- **La chose exacte dont je parle** — la vignette de la vidéo que j'ai écoutée,
+  ma soumission, mon courriel, mon document à l'écran : c'est une preuve, ça va
+- **Une image générique qui illustre l'idée** — une poignée de main pour
+  « fournisseur », une pile de billets pour « argent » : jamais
+
+Une prise où je bégaie est écartée complètement, son et image. Ne la réutilise
+pas comme fond.
 
 ## Comment monter
 
