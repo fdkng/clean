@@ -35,20 +35,24 @@ FOLDER = Path.cwd()
 # Quel agent pilote le montage. Change-le avec la variable STUDIO_AGENT :
 #     STUDIO_AGENT=codex python3 studio.py
 #
-# Chaque profil dit comment lancer l'agent sur un message, et comment lui
-# demander de continuer la conversation precedente plutot que d'en ouvrir une
-# neuve. Les outils pre-approuves evitent qu'il s'arrete a chaque commande
-# ffmpeg ; ils ne valent que dans ce dossier.
+# Chaque profil construit la ligne de commande complete, selon qu'on ouvre une
+# conversation ou qu'on reprend la precedente. Les options passent avant le
+# message : "codex exec [OPTIONS] [PROMPT]" refuse un drapeau place apres le
+# prompt. Les outils pre-approuves evitent que l'agent s'arrete a chaque
+# commande ffmpeg ; ils ne valent que dans ce dossier.
 AGENTS = {
     "claude": {
         "bin": "claude",
-        "run": lambda msg: ["-p", msg, "--allowedTools", "Bash,Read,Write,Edit,Glob,Grep"],
-        "continue_flag": "--continue",
+        "args": lambda msg, cont: (["--continue"] if cont else [])
+                + ["-p", msg, "--allowedTools", "Bash,Read,Write,Edit,Glob,Grep"],
     },
     "codex": {
         "bin": "codex",
-        "run": lambda msg: ["exec", msg, "--full-auto"],
-        "continue_flag": "resume",
+        "args": lambda msg, cont: ["exec"] + (["resume", "--last"] if cont else [])
+                + ["--full-auto", msg],
+        # Si la reprise n'est pas supportee par cette version, on repart a neuf
+        # au lieu d'echouer.
+        "retry_fresh": True,
     },
 }
 
@@ -94,35 +98,43 @@ def agent_binary():
 def run_agent(job_id, message):
     """Lance l'agent sur le message et accumule sa sortie dans le job."""
     profile = agent_profile()
-    cmd = [agent_binary()] + profile["run"](message)
-    if STARTED_CONVERSATION.is_set():
-        cmd.insert(1, profile["continue_flag"])
+    env = {k: v for k, v in os.environ.items() if k not in AUTH_OVERRIDES}
 
     def append(text):
         with JOBS_LOCK:
             JOBS[job_id]["output"] += text
 
-    env = {k: v for k, v in os.environ.items() if k not in AUTH_OVERRIDES}
+    def launch(cont):
+        cmd = [agent_binary()] + profile["args"](message, cont)
+        try:
+            proc = subprocess.Popen(
+                cmd, cwd=str(FOLDER), stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT, text=True, bufsize=1, env=env,
+            )
+        except OSError as exc:
+            append("Impossible de lancer l'agent : %s\n" % exc)
+            return None, ""
+        captured = ""
+        for line in proc.stdout:
+            captured += line
+            append(line)
+        proc.wait()
+        return proc.returncode, captured
 
-    try:
-        proc = subprocess.Popen(
-            cmd, cwd=str(FOLDER), stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT, text=True, bufsize=1, env=env,
-        )
-    except OSError as exc:
-        append("Impossible de lancer l'agent : %s" % exc)
-        with JOBS_LOCK:
-            JOBS[job_id]["status"] = "erreur"
-        return
+    cont = STARTED_CONVERSATION.is_set()
+    code, out = launch(cont)
 
-    for line in proc.stdout:
-        append(line)
-    proc.wait()
+    # La reprise de conversation a ete refusee sur un argument : on relance une
+    # conversation neuve plutot que de rendre la main sur une erreur d'outil.
+    if (code not in (0, None) and cont and profile.get("retry_fresh")
+            and ("unexpected argument" in out or "unrecognized" in out)):
+        append("\n[reprise non supportee, nouvelle conversation]\n")
+        code, out = launch(False)
 
     STARTED_CONVERSATION.set()
     with JOBS_LOCK:
-        JOBS[job_id]["status"] = "fini" if proc.returncode == 0 else "erreur"
-        JOBS[job_id]["code"] = proc.returncode
+        JOBS[job_id]["status"] = "fini" if code == 0 else "erreur"
+        JOBS[job_id]["code"] = code
 
 
 # ---------------------------------------------------------------------------
