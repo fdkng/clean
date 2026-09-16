@@ -106,6 +106,37 @@ programme. N'invente pas une image approchante.
 Une prise où je bégaie est écartée complètement, son et image. Ne la réutilise
 pas comme fond.
 
+## Quand je te dis que c'est deja coupe
+
+Certains jours je te donne un fichier que j'ai **deja monte moi-meme**. Je te le
+dis explicitement.
+
+Dans ce cas : **tu ne coupes rien.** Pas un silence, pas une hesitation, pas une
+respiration. Le rythme est deja decide, ce n'est plus ton travail.
+
+Tu fais le reste : sous-titres, animations, etalonnage, son, export. Si tu penses
+qu'une coupe ameliorerait quelque chose, **dis-le-moi et attends** — ne la fais
+pas.
+
+## Ne coupe jamais dans une phrase
+
+Un silence a la fin d'une phrase est de la **ponctuation**, pas du vide mort.
+
+Entre « When was the last time it happened? » et « What did you try? », le
+silence fait partie de la livraison. Le supprimer colle les deux phrases et ca
+s'entend immediatement.
+
+Avant toute coupe :
+
+- Verifie que la phrase est **terminee** — dernier mot prononce en entier, pas
+  coupe sur sa syllabe finale
+- Laisse au moins **250 ms** apres le dernier mot avant de couper
+- Ne coupe jamais entre deux phrases d'une meme idee enumeree
+
+La regle du demi-seconde vise les vrais blancs : quand je cherche mes mots,
+quand je relis mes notes, quand je repars une prise. Pas les respirations d'une
+phrase a l'autre.
+
 ## Comment monter
 
 **Les coupes.** Enlève les silences de plus d'une demi-seconde et mes
