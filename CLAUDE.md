@@ -81,6 +81,23 @@ première venue parce qu'elle arrive en premier dans le fichier.
 Dis-moi toujours, pour chaque ligne : combien de prises tu as trouvées, laquelle
 tu as retenue, et pourquoi.
 
+## Une prise ratée reste une image
+
+Quand j'écarte une prise parce que je bégaie, **j'écarte le son, pas l'image.**
+Dans ces plans-là je suis quand même dans le cadre : je bouge, je regarde
+l'objectif. Sous une voix off ou sous un carton, personne n'entend que j'avais
+bafouillé.
+
+Un dossier de rushes contient toujours plusieurs minutes de moi filmé, même
+quand une seule prise est utilisable au son.
+
+**Ne mets jamais de fond noir tant qu'il reste une seconde de moi dans les
+rushes.** Assombris à 35 %, désature à 40 %, pose le texte par-dessus. Boucle
+le passage s'il est trop court.
+
+Fabriquer un carton sur fond vide est un dernier recours, pas une solution de
+mise en scène. Avant d'en créer un, cherche dans ce que tu as écarté.
+
 ## Comment monter
 
 **Les coupes.** Enlève les silences de plus d'une demi-seconde et mes
