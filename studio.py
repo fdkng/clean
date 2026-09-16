@@ -32,9 +32,27 @@ from urllib.parse import unquote, urlparse
 PORT = 8765
 FOLDER = Path.cwd()
 
-# Outils pre-approuves pour que l'agent puisse lancer ffmpeg sans t'interrompre
-# a chaque commande. Ils s'appliquent uniquement dans ce dossier.
-CLAUDE_FLAGS = ["--allowedTools", "Bash,Read,Write,Edit,Glob,Grep"]
+# Quel agent pilote le montage. Change-le avec la variable STUDIO_AGENT :
+#     STUDIO_AGENT=codex python3 studio.py
+#
+# Chaque profil dit comment lancer l'agent sur un message, et comment lui
+# demander de continuer la conversation precedente plutot que d'en ouvrir une
+# neuve. Les outils pre-approuves evitent qu'il s'arrete a chaque commande
+# ffmpeg ; ils ne valent que dans ce dossier.
+AGENTS = {
+    "claude": {
+        "bin": "claude",
+        "run": lambda msg: ["-p", msg, "--allowedTools", "Bash,Read,Write,Edit,Glob,Grep"],
+        "continue_flag": "--continue",
+    },
+    "codex": {
+        "bin": "codex",
+        "run": lambda msg: ["exec", msg, "--full-auto"],
+        "continue_flag": "resume",
+    },
+}
+
+AGENT_NAME = os.environ.get("STUDIO_AGENT", "claude").strip().lower()
 
 # Variables qui detournent l'agent vers une cle d'API ou un proxy au lieu de ta
 # session Claude. On les retire avant de le lancer, sans toucher a ton shell.
@@ -53,21 +71,32 @@ STARTED_CONVERSATION = threading.Event()
 # L'agent
 # ---------------------------------------------------------------------------
 
-def claude_binary():
-    found = shutil.which("claude")
+def agent_profile():
+    profile = AGENTS.get(AGENT_NAME)
+    if profile is None:
+        sys.exit("Agent inconnu : %s. Choix possibles : %s"
+                 % (AGENT_NAME, ", ".join(sorted(AGENTS))))
+    return profile
+
+
+def agent_binary():
+    profile = agent_profile()
+    found = shutil.which(profile["bin"])
     if not found:
-        sys.exit(
-            "Claude Code est introuvable.\n"
-            "  npm install -g @anthropic-ai/claude-code\n"
-        )
+        hint = {
+            "claude": "npm install -g @anthropic-ai/claude-code",
+            "codex": "npm install -g @openai/codex",
+        }.get(AGENT_NAME, "")
+        sys.exit("'%s' est introuvable.\n  %s\n" % (profile["bin"], hint))
     return found
 
 
 def run_agent(job_id, message):
     """Lance l'agent sur le message et accumule sa sortie dans le job."""
-    cmd = [claude_binary(), "-p", message] + CLAUDE_FLAGS
+    profile = agent_profile()
+    cmd = [agent_binary()] + profile["run"](message)
     if STARTED_CONVERSATION.is_set():
-        cmd.insert(1, "--continue")
+        cmd.insert(1, profile["continue_flag"])
 
     def append(text):
         with JOBS_LOCK:
@@ -596,15 +625,16 @@ main{flex:1; display:flex; min-height:0}
 # ---------------------------------------------------------------------------
 
 def main():
-    claude_binary()
+    agent_binary()
     server = ThreadingHTTPServer(("127.0.0.1", PORT), Handler)
     url = "http://localhost:%d" % PORT
     print("\n  Studio\n")
+    print("  Agent   : %s" % AGENT_NAME)
     print("  Dossier : %s" % FOLDER)
     print("  Adresse : %s" % url)
     stripped = [k for k in AUTH_OVERRIDES if k in os.environ]
     if stripped:
-        print("  Ignore  : %s (l'agent utilise ta session Claude)"
+        print("  Ignore  : %s (l'agent utilise ta session, pas une cle d'API)"
               % ", ".join(stripped))
     print("\n  Ctrl+C pour arreter.\n")
     threading.Timer(1.0, lambda: webbrowser.open(url)).start()

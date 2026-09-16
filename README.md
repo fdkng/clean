@@ -98,3 +98,27 @@ personnel.
 > Fais grossir le mot quand je le prononce.
 
 > Retiens ça dans CLAUDE.md.
+
+## Changer d'agent
+
+Le studio pilote Claude Code par défaut. Pour Codex :
+
+```
+STUDIO_AGENT=codex python3 studio.py
+```
+
+Le nom de l'agent s'affiche au démarrage. `AGENTS.md` pointe sur `CLAUDE.md`,
+donc les deux lisent le même contexte — rien à dupliquer.
+
+Installer Codex et lui donner les mêmes outils :
+
+```
+npm install -g @openai/codex
+npx ffmpeg-skill --codex
+```
+
+Les skills Remotion sont déjà en place pour Codex : elles ont été installées
+dans `.agents/skills`, que les deux agents lisent.
+
+Si le lancement échoue sur un drapeau inconnu, la commande exacte s'affiche
+dans l'erreur — les profils sont en haut de `studio.py`, dans `AGENTS`.
