@@ -135,39 +135,30 @@ Dans ManyChat, configurer le déclencheur pour attraper `336`, `336 ` et `#336`.
 ```
 Hey — you commented 336.
 
-Here's the thing I actually use. It's five rules. It's not motivation,
-motivation doesn't come back on its own.
+Here's the guide. Five rules I use on the days I don't feel like it.
+It's free, there's nothing to sign up for, and it takes about five
+minutes to read.
 
-1. Decide the night before.
-Never in the morning. In the morning you negotiate. At night you just
-write the sentence: tomorrow I do X. Then in the morning there's nothing
-to decide, only something to execute.
+<LIEN DU GUIDE>
 
-2. Make the bar small enough that you can't fail it.
-Mine is one video watched, not three. Three is the good day. One is the
-floor. A floor you never break is worth more than a ceiling you hit twice.
-
-3. Publish the result, not the plan.
-Saying what you're going to do feels like doing it — that's the trap.
-Say it after. The only thing anyone should see from you is what already
-happened.
-
-4. Never miss twice.
-Missing one day is an accident. Missing two is the new pattern. This one
-isn't mine, it's from James Clear, and it's the only rule on this list
-that has saved me more than once.
-
-5. Keep count where you can see it.
-I'm on day X of 336. The number is the whole reason I don't stop — I'm
-not protecting my motivation, I'm protecting the number.
-
-That's all of it. No system, no app.
+Rule 1 is the one to do tonight, before you sleep. The rest can wait
+until tomorrow.
 
 — Louis-Félix
 ```
 
-Remplacer `day X` par le vrai numéro avant de publier, et le mettre à jour de
-temps en temps. Un faux numéro tue tout le reste.
+Le guide est une page web : **https://claude.ai/artifact/WxXAKVaGBFJZ2wPccS92YH**
+
+Contenu : les cinq règles (décider la veille · un plancher que tu peux pas
+manquer · publier le résultat pas le plan · jamais deux fois de suite · garder
+le compte visible), chacune avec ce qui casse sans elle, le mécanisme, ma
+version concrète, et l'action à faire le soir même. Plus une liste de quatre
+cases à cocher à la fin.
+
+**La page est privée tant que je ne la partage pas.** Avant de brancher
+ManyChat : ouvrir la page, menu Partager, la rendre publique, et tester le lien
+dans une fenêtre de navigation privée. Si le lien est mort, j'envoie un lien
+mort à tout le monde qui a commenté.
 
 ### Message 2 — 24 h plus tard
 
