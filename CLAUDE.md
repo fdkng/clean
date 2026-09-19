@@ -15,8 +15,10 @@ Je documente un programme d'affaires de 336 jours que je me suis écrit
 moi-même. Trois vidéos de cours par jour, puis je publie une vidéo d'environ
 une minute sur ce que j'ai appris. Je parle en anglais, face caméra.
 
-Le sujet, c'est **l'apprentissage**. Le produit que je construis reste en
-arrière-plan.
+Le sujet, c'est **l'apprentissage**, et c'est aussi le produit. Le programme
+lui-même est ce que je vends : je le construis en public, un jour à la fois, et
+les gens qui me suivent peuvent l'acheter au complet. Il n'y a plus de business
+cachée en arrière-plan à ménager — ce que je montre est ce que je vends.
 
 ## La structure d'une vidéo
 
@@ -169,10 +171,16 @@ l'écran. Du stock générique détruit exactement ce qui me rend crédible.
 
 ## Le vocabulaire
 
-J'évite de nommer mon produit précis dans les vidéos : ça brouille le
-classement de mon compte. Je dis « my brand », « my supplier », « my first
-order », « my product ». Si tu génères ou corriges du texte à l'écran, garde ce
-vocabulaire-là.
+**Cette règle a changé.** Avant, j'évitais de nommer mon produit pour ne pas
+brouiller le classement du compte. Ce n'est plus le cas : le programme est le
+produit, et le compte doit être classé là-dessus.
+
+Dis « my program », « the 336 days », « day 47 of 336 ». Le nombre 336 revient
+souvent, c'est voulu — c'est ce qui rend le projet reconnaissable.
+
+Ce que je ne dis jamais : « diplôme », « certification », « garanti ». Je ne
+promets aucun résultat, c'est juste pour apprendre. Si tu génères ou corriges du
+texte à l'écran, ne me fais jamais promettre quelque chose.
 
 ## À ne jamais faire
 
