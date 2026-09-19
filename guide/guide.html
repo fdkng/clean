@@ -1,0 +1,366 @@
+<title>The Days You Don't Feel Like It</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+  :root{
+    --ink:#14110E;
+    --surface:#1C1813;
+    --raise:#241F19;
+    --line:#302921;
+    --line-soft:#241E18;
+    --text:#EFE8DC;
+    --muted:#9B9083;
+    --brass:#D9AE5C;
+    --brass-dim:#8E7238;
+    --red:#D2635A;
+    --display:"Anton","Haettenschweiler","Arial Narrow",sans-serif;
+    --body:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+    color-scheme:dark;
+  }
+
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--body);
+    font-size:17px;
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    padding-inline:20px;
+    padding-block:0;
+  }
+
+  .wrap{max-width:37rem;margin:0 auto;}
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    padding-block:52px 40px;
+    border-bottom:1px solid var(--line);
+    display:flex;flex-direction:column;gap:22px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--brass);
+    margin:0;
+  }
+  .masthead h1{
+    font-family:var(--display);
+    font-weight:400;
+    font-size:clamp(42px,12vw,72px);
+    line-height:.94;
+    letter-spacing:.005em;
+    text-transform:uppercase;
+    text-wrap:balance;
+    margin:0;
+    color:var(--text);
+  }
+  .masthead h1 em{font-style:normal;color:var(--brass);}
+  .standfirst{
+    margin:0;
+    font-size:19px;
+    line-height:1.5;
+    color:var(--muted);
+    max-width:30rem;
+  }
+  .byline{
+    font-family:var(--mono);
+    font-size:12px;
+    letter-spacing:.06em;
+    color:var(--muted);
+    margin:0;
+  }
+  .byline b{color:var(--text);font-weight:500;}
+
+  /* ---------- intro ---------- */
+  .intro{padding-block:34px 8px;display:flex;flex-direction:column;gap:18px;}
+  .intro p{margin:0;}
+  .intro p:first-child{font-size:18px;}
+  .intro strong{color:var(--brass);font-weight:600;}
+
+  /* ---------- the sequence ---------- */
+  .seq{
+    margin-block:30px 6px;
+    padding:20px 22px;
+    background:var(--surface);
+    border:1px solid var(--line);
+  }
+  .seq h2{
+    font-family:var(--mono);
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 14px;font-weight:500;
+  }
+  .seq ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;}
+  .seq li{display:flex;gap:14px;align-items:baseline;font-size:15px;color:var(--muted);}
+  .seq .n{
+    font-family:var(--mono);font-size:12px;color:var(--brass-dim);
+    min-width:1.4em;font-variant-numeric:tabular-nums;
+  }
+  .seq li b{color:var(--text);font-weight:500;}
+
+  /* ---------- rules ---------- */
+  .rule{
+    padding-block:46px;
+    border-top:1px solid var(--line);
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .rule:first-of-type{border-top:none;}
+  .when{
+    display:flex;align-items:baseline;gap:12px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .when .num{
+    color:var(--brass);font-variant-numeric:tabular-nums;
+  }
+  .when .bar{flex:1;height:1px;background:var(--line);}
+  .rule h2{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(27px,7.2vw,38px);
+    line-height:1.02;text-transform:uppercase;letter-spacing:.005em;
+    text-wrap:balance;margin:0;
+  }
+  .breaks{
+    margin:0;
+    padding-left:16px;
+    border-left:2px solid var(--red);
+    color:var(--red);
+    font-size:16px;
+    font-style:italic;
+  }
+  .rule p{margin:0;}
+  .rule .lede{font-size:18px;}
+
+  .mine,.tonight{
+    border:1px solid var(--line);
+    padding:18px 20px;
+    display:flex;flex-direction:column;gap:9px;
+  }
+  .mine{background:var(--surface);}
+  .tonight{background:var(--raise);border-color:var(--brass-dim);}
+  .mine h3,.tonight h3{
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;margin:0;font-weight:500;
+  }
+  .mine h3{color:var(--muted);}
+  .tonight h3{color:var(--brass);}
+  .mine p,.tonight p{font-size:16px;line-height:1.55;}
+  .mine p{color:var(--text);}
+
+  .credit{
+    font-size:14px;color:var(--muted);
+    border-top:1px dashed var(--line);padding-top:14px;margin:0;
+  }
+  .credit b{color:var(--text);font-weight:500;}
+
+  /* ---------- checklist ---------- */
+  .tonightlist{
+    margin-block:48px 0;
+    border:1px solid var(--brass-dim);
+    background:var(--surface);
+    padding:26px 22px;
+    display:flex;flex-direction:column;gap:20px;
+  }
+  .tonightlist h2{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(25px,6.6vw,34px);line-height:1.02;
+    text-transform:uppercase;margin:0;color:var(--brass);
+  }
+  .tonightlist > p{margin:0;font-size:16px;color:var(--muted);}
+  .checks{display:flex;flex-direction:column;gap:2px;}
+  .checks label{
+    display:flex;gap:14px;align-items:flex-start;
+    padding:13px 4px;
+    border-top:1px solid var(--line-soft);
+    cursor:pointer;font-size:16px;line-height:1.45;
+  }
+  .checks label:first-child{border-top:none;}
+  .checks input{
+    appearance:none;-webkit-appearance:none;
+    width:19px;height:19px;flex:none;margin:3px 0 0;
+    border:1.5px solid var(--brass-dim);background:transparent;
+    display:grid;place-content:center;cursor:pointer;
+  }
+  .checks input::after{
+    content:"";width:9px;height:9px;background:var(--brass);
+    transform:scale(0);transition:transform .12s ease;
+  }
+  .checks input:checked::after{transform:scale(1);}
+  .checks input:focus-visible{outline:2px solid var(--brass);outline-offset:2px;}
+  .checks input:checked + span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--brass-dim);}
+  .checks span{transition:color .12s ease;}
+
+  /* ---------- outro ---------- */
+  .outro{
+    padding-block:44px;
+    border-top:1px solid var(--line);
+    margin-top:44px;
+    display:flex;flex-direction:column;gap:16px;
+  }
+  .outro h2{
+    font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);margin:0;font-weight:500;
+  }
+  .outro p{margin:0;}
+  .outro .sig{
+    font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+    color:var(--muted);padding-top:22px;border-top:1px solid var(--line);
+  }
+  .outro .sig b{color:var(--brass);font-weight:500;}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;}
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Free · Nothing to sign up for</p>
+    <h1>The days you<br>don't <em>feel like it</em></h1>
+    <p class="standfirst">Five rules I use when the motivation is already gone. Written down so I can't argue with myself.</p>
+    <p class="byline">By <b>Louis-Félix</b> — 336 days of learning, in public</p>
+  </header>
+
+  <section class="intro">
+    <p>I'm 17. I left school. I wrote myself a 336-day program out of everything I wanted to learn, and I'm doing it in public — one day at a time, on camera, whether the day went well or not.</p>
+    <p>This is not motivation. Motivation is the thing that leaves. These are the five rules I use on the days it's already gone.</p>
+    <p><strong>Nothing here is guaranteed to work for you.</strong> It works for me, so far. That's the whole claim.</p>
+  </section>
+
+  <div class="seq">
+    <h2>The five, in the order you need them</h2>
+    <ol>
+      <li><span class="n">1</span><span><b>The night before</b> — decide at night, not in the morning</span></li>
+      <li><span class="n">2</span><span><b>The morning</b> — set a floor you cannot fail</span></li>
+      <li><span class="n">3</span><span><b>After</b> — publish the result, not the plan</span></li>
+      <li><span class="n">4</span><span><b>The day you miss</b> — never miss twice</span></li>
+      <li><span class="n">5</span><span><b>The long run</b> — keep the count where you can see it</span></li>
+    </ol>
+  </div>
+
+  <article class="rule">
+    <p class="when"><span class="num">1</span><span>The night before</span><span class="bar"></span></p>
+    <h2>Decide at night, not in the morning</h2>
+    <p class="breaks">What breaks: in the morning you don't execute. You renegotiate.</p>
+    <p class="lede">The person who decides and the person who does the work are not the same person.</p>
+    <p>At night you're calm, the day is over, and you can be honest about tomorrow. In the morning you're tired, it's cold, and every reason to skip is sitting right there sounding completely reasonable.</p>
+    <p>If the decision is still open at 7am, you will lose it. Not because you're weak — because you're negotiating against someone with better arguments than you, who also happens to be you.</p>
+    <p>So close the decision while you still have the advantage. One sentence, written down, before bed. Not a list. One.</p>
+    <div class="mine">
+      <h3>Mine</h3>
+      <p>Before I sleep I write one line: <em>tomorrow, three videos and I post.</em> In the morning there's nothing left to decide — only something to do. That's the entire trick, and it took me an embarrassing amount of time to find it.</p>
+    </div>
+    <div class="tonight">
+      <h3>Tonight</h3>
+      <p>Write tomorrow's one sentence before you sleep. Specific enough that by tomorrow night you'll know for certain whether you did it or not.</p>
+    </div>
+  </article>
+
+  <article class="rule">
+    <p class="when"><span class="num">2</span><span>The morning</span><span class="bar"></span></p>
+    <h2>Set a floor you cannot fail</h2>
+    <p class="breaks">What breaks: all-or-nothing always ends at nothing.</p>
+    <p class="lede">Most people set the target for their best day, then meet it about twice.</p>
+    <p>Day three something goes wrong — you're sick, you're out late, the day gets taken from you. You miss. And because the whole thing was built on the good day, there's nothing underneath to catch you.</p>
+    <p>Build the floor first. The floor is the version so small you'd have to <em>actively refuse</em> to do it, and you do it on the worst day: the sick day, the 11pm day, the day you hate the project. The good day was never the problem; it doesn't need a rule.</p>
+    <p>A floor you never break is worth more than a ceiling you hit twice.</p>
+    <div class="mine">
+      <h3>Mine</h3>
+      <p>Three videos is a good day. <em>One</em> video is the floor. I've done one video at 11:40pm, in bed, more times than I'd like to admit. It still counted — and that's exactly the point. The streak survived a day that should have killed it.</p>
+    </div>
+    <div class="tonight">
+      <h3>Tonight</h3>
+      <p>Name your floor, and make it embarrassingly small. If it doesn't feel slightly pathetic, you've written another target, not a floor.</p>
+    </div>
+  </article>
+
+  <article class="rule">
+    <p class="when"><span class="num">3</span><span>After</span><span class="bar"></span></p>
+    <h2>Publish the result, not the plan</h2>
+    <p class="breaks">What breaks: telling people feels like doing it.</p>
+    <p class="lede">Announce what you're about to do, and people react like you already did it.</p>
+    <p>Your brain accepts that reaction as payment. And once you've been paid, the work stops being the reward and becomes a bill you owe. So you don't pay it.</p>
+    <p>Flip the order. Say it after. The only thing anyone should be able to see from you is something that already happened.</p>
+    <p>It's much quieter. It's also the only version that compounds — nobody can take a result back from you, and you never have to explain a plan that didn't happen.</p>
+    <div class="mine">
+      <h3>Mine</h3>
+      <p>I post every day about what I learned <em>that day</em>. I never post what I'm going to do tomorrow. The difference in how the two feel is enormous: announcing feels great and changes nothing, posting a result feels like almost nothing and changes everything.</p>
+    </div>
+    <div class="tonight">
+      <h3>Tonight</h3>
+      <p>For the next seven days, tell nobody what you're about to do. Then show them what you did.</p>
+    </div>
+  </article>
+
+  <article class="rule">
+    <p class="when"><span class="num">4</span><span>The day you miss</span><span class="bar"></span></p>
+    <h2>Never miss twice</h2>
+    <p class="breaks">What breaks: one missed day is an accident. Two is the new normal.</p>
+    <p class="lede">You will miss. Everyone does. Plan for it instead of pretending you won't.</p>
+    <p>Missing once changes nothing about who you are — you had a bad day, that's all it means. Missing twice is where the story quietly changes: you stop being someone who had a bad day and start being someone who <em>used to</em> do that.</p>
+    <p>So this rule isn't about the day you miss. It's about day two. And you decide what day two looks like <em>now</em>, before it's happening to you and you're the one arguing. Usually the answer is just the floor from rule 2 — nothing heroic, nothing to make up for.</p>
+    <p>There's no debt to repay. There's only the next day.</p>
+    <p class="credit"><b>Not mine:</b> this one comes from James Clear, in <em>Atomic Habits</em>. I'm not going to pretend I came up with it. It's also the only rule on this list that has saved me more than once.</p>
+    <div class="tonight">
+      <h3>Tonight</h3>
+      <p>Write your recovery move in one sentence, now: <em>"If I miss a day, the next day I do ____, no matter what."</em> Decided in advance, it costs you nothing. Decided in the moment, it never gets decided.</p>
+    </div>
+  </article>
+
+  <article class="rule">
+    <p class="when"><span class="num">5</span><span>The long run</span><span class="bar"></span></p>
+    <h2>Keep the count where you can see it</h2>
+    <p class="breaks">What breaks: waiting to feel like it again.</p>
+    <p class="lede">Motivation doesn't come back on schedule, and you can't force it. So stop letting it decide.</p>
+    <p>Replace it with something that doesn't have moods: a number that goes up, in a place you can't avoid looking at.</p>
+    <p>After a few weeks the number becomes the thing you're protecting. You stop asking <em>do I feel like it</em> and start thinking <em>I'm not breaking this.</em> That's a much weaker feeling than motivation — and far more reliable, because it's still there on the days motivation isn't.</p>
+    <p>Make it visible and make it public if you can. A number only you can see is a number you can quietly reset.</p>
+    <div class="mine">
+      <h3>Mine</h3>
+      <p>My number is a day out of 336, and I put it on every single video I post. That makes it public, which means I can't quietly start over. Some days that number is the entire reason the work gets done. Not discipline — just not wanting to break it.</p>
+    </div>
+    <div class="tonight">
+      <h3>Tonight</h3>
+      <p>Pick where the number lives: a wall, a whiteboard, the back of your phone case. Somewhere you don't have to open anything to see it. Then put today on it.</p>
+    </div>
+  </article>
+
+  <section class="tonightlist">
+    <h2>Tonight, in ten minutes</h2>
+    <p>None of this works in your head. Four things, before you sleep:</p>
+    <div class="checks">
+      <label><input type="checkbox" id="ck1"><span>Write tomorrow's one sentence.</span></label>
+      <label><input type="checkbox" id="ck2"><span>Name your floor — small enough to feel slightly pathetic.</span></label>
+      <label><input type="checkbox" id="ck3"><span>Write your recovery move: "If I miss, the next day I ____."</span></label>
+      <label><input type="checkbox" id="ck4"><span>Pick where the number lives, and put today on it.</span></label>
+    </div>
+  </section>
+
+  <footer class="outro">
+    <h2>What this isn't</h2>
+    <p>It isn't a system, an app, or a method. There's nothing to buy on this page and nothing to sign up for. Five rules — and they only work once they're written down somewhere outside your head.</p>
+    <p>If it works for you, tell me. If it doesn't, tell me that too. I'd rather know.</p>
+    <p class="sig">Louis-Félix — day by day, out of <b>336</b>, in public.</p>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    var boxes = document.querySelectorAll('.checks input');
+    var KEY = 'tonight-v1';
+    var state = {};
+    try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
+    boxes.forEach(function (b) {
+      if (state[b.id]) { b.checked = true; }
+      b.addEventListener('change', function () {
+        state[b.id] = b.checked;
+        try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {}
+      });
+    });
+  })();
+</script>
